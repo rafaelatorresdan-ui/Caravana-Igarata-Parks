@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orlando Parks Guide</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">GUIA INTERATIVO</p>
+      <h1>Orlando Parks Guide</h1>
+      <p class="subtitle">Escolha um parque e explore o roteiro.</p>
+      <button id="editToggle" class="edit-toggle" type="button">Editar guia</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside class="park-sidebar">
+      <h2>Parques</h2>
+      <nav id="parkNav" class="park-nav" aria-label="Parques de Orlando"></nav>
+    </aside>
+
+    <section class="park-content">
+      <div class="park-heading">
+        <div>
+          <p class="eyebrow" id="parkGroup">DISNEY</p>
+          <h2 id="parkTitle">Magic Kingdom</h2>
+          <p id="parkDescription" class="park-description"></p>
+        </div>
+        <div class="legend" id="legend"></div>
+      </div>
+
+
+      <section id="editorPanel" class="editor-panel" hidden>
+        <div class="editor-head"><div><p class="eyebrow">MODO DE EDIÇÃO</p><h3>Editar guia</h3></div><span>Edite o parque e a atração selecionada. Você também pode arrastar o pin diretamente no mapa.</span></div>
+        <form id="editorForm" class="editor-form">
+          <div class="wide editor-section-title"><strong>Informações do parque</strong></div>
+          <label class="wide">Informações adicionais<textarea id="editParkNotes" rows="3" placeholder="Digite aqui as informações adicionais deste parque."></textarea></label>
+          <div class="wide editor-section-title"><strong>Atração selecionada</strong></div>
+          <label>Nome<input id="editName" type="text" required></label>
+          <label>Área<input id="editArea" type="text"></label>
+          <label>Categoria<input id="editCategory" type="text"></label>
+          <label>Prioridade<select id="editPriority"><option>Alta</option><option>Média</option><option>Opcional</option></select></label>
+          <label class="wide">Foto <small>Ex.: assets/attractions/tron.jpg</small><input id="editPhoto" type="text"></label>
+          <label class="wide">Descrição<textarea id="editDescription" rows="3"></textarea></label>
+          <label>Posição X<input id="editX" type="number" min="0" max="100" step="0.1"></label>
+          <label>Posição Y<input id="editY" type="number" min="0" max="100" step="0.1"></label>
+          <label class="wide">Observação<input id="editObservation" type="text"></label>
+          <div class="editor-actions wide"><button class="primary" id="saveEdits" type="submit">Salvar alterações</button><button id="addAttraction" type="button">+ Nova atração</button><button id="deleteAttraction" class="danger" type="button">Excluir atração</button><button id="exportData" type="button">Exportar data.js</button><button id="resetEdits" type="button">Restaurar original</button></div>
+        </form>
+        <p class="editor-tip"><strong>Importante:</strong> as alterações ficam salvas automaticamente neste navegador. Quando terminar, clique em <strong>Exportar data.js</strong> e substitua o data.js antigo pelo arquivo baixado antes de publicar o site.</p>
+      </section>
+
+      <div class="experience-grid">
+        <aside class="attraction-panel">
+          <div class="panel-title-row">
+            <h3>Roteiro</h3>
+            <span id="attractionCount" class="count-badge"></span>
+          </div>
+          <div id="attractionList" class="attraction-list"></div>
+        </aside>
+
+        <section class="map-card" aria-label="Mapa interativo do parque">
+          <div class="map-toolbar">
+            <span>Mapa do parque</span>
+            <span class="map-hint">Passe o mouse ou clique em uma atração</span>
+          </div>
+          <div id="mapStage" class="map-stage">
+            <img id="parkMap" class="park-map" alt="Mapa do parque" />
+            <div id="mapFallback" class="map-fallback" aria-hidden="true"></div>
+            <div id="pinsLayer" class="pins-layer"></div>
+          </div>
+        </section>
+      </div>
+
+      <section class="details-card" id="detailsCard">
+        <div class="details-photo-wrap">
+          <img id="detailPhoto" class="details-photo" alt="Foto da atração" />
+          <div id="photoFallback" class="photo-fallback"></div>
+        </div>
+        <div class="details-content">
+          <div class="details-topline">
+            <span id="detailNumber" class="detail-number"></span>
+            <span id="detailCategory" class="category-pill"></span>
+          </div>
+          <h3 id="detailName"></h3>
+          <p id="detailArea" class="detail-area"></p>
+          <p id="detailDescription" class="detail-description"></p>
+          <div id="detailMeta" class="meta-grid"></div>
+        </div>
+      </section>
+
+      <section class="notes-card">
+        <h3>Informações adicionais</h3>
+        <p id="parkNotes"></p>
+      </section>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
